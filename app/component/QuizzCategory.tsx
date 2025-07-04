@@ -11,7 +11,7 @@ const QuizzCategory = ({
   category: string;
 }) => {
   return (
-    <Link href="#" className="rounded-lg cursor-pointer">
+    <Link href={`/quizzes/${category}`} className="rounded-lg cursor-pointer">
       <div className="relative flex h-[18rem] w-[20rem]">
         <Image
           className="rounded-lg"
