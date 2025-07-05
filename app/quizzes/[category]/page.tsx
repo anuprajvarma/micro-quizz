@@ -2,11 +2,11 @@ import Link from "next/link";
 import { allQuizzes } from "@/data/dummuyData";
 
 interface Props {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }
 
-const Page = async ({ params }: Props) => {
-  const { category } = await params; // ✅ explicitly await
+const Page = async (props: Props) => {
+  const { category } = await props.params; // ✅ explicitly await
   console.log("Category:", category); // ✅ explicitly await
   const selectedQuiz = allQuizzes.find(
     (quiz) => quiz.category.toLowerCase() === category.toLowerCase()
