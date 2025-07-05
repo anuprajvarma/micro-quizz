@@ -2,6 +2,9 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { AppDispatch } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import { setScore } from "@/redux/slices/Score";
 
 interface Question {
   id: string;
@@ -17,6 +20,8 @@ interface QuizClientProps {
 
 const QuizClient: React.FC<QuizClientProps> = ({ questionData, index }) => {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+
   const [selected, setSelected] = useState<string | null>(null);
 
   const checkAnswer = (option: string) => {
@@ -54,7 +59,14 @@ const QuizClient: React.FC<QuizClientProps> = ({ questionData, index }) => {
       ))}
       <div className="w-full flex justify-end">
         <button
-          onClick={router.back}
+          onClick={() => {
+            if (selected) {
+              dispatch(setScore(selected === questionData.answer ? 1 : 0));
+              router.back();
+            } else {
+              router.back();
+            }
+          }}
           className="text-white cursor-pointer bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
           {selected ? "Done" : "Back"}
