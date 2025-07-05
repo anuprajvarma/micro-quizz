@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React from "react";
 
-const QuizzTitle = ({ title }: { title: string }) => {
+const QuizzTitle = ({ title, id }: { title: string; id: string }) => {
   return (
     <Link
-      href="#"
+      href={`/quiz/${id}`}
       className="flex flex-col min-w-[15rem] px-6 py-4 border rounded-lg shadow-sm bg-gray-800 border-gray-700 hover:bg-gray-700"
     >
       <h5 className="text-2xl font-medium tracking-tight text-gray-900 dark:text-white">

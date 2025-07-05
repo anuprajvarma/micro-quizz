@@ -1,5 +1,5 @@
 import React from "react";
-import QuizzTitle from "@/app/component/QuizzTitle";
+import QuizzTopic from "@/app/component/QuizzTopic";
 
 const allQuizzes = [
   {
@@ -52,7 +52,7 @@ const Page = ({ params }: Props) => {
                 quiz.category.toLowerCase() === params.category.toLowerCase()
               ) {
                 return quiz.quizzes.map((q) => (
-                  <QuizzTitle key={q.id} title={q.title} />
+                  <QuizzTopic key={q.id} id={q.id} title={q.title} />
                 ));
               }
               return null;
