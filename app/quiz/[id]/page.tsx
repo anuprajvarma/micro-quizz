@@ -2,10 +2,11 @@ import React from "react";
 import { allQuizzes } from "@/data/dummuyData";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-const Page = ({ params }: Props) => {
+const Page = async (props: Props) => {
+  const params = await props.params;
   return (
     <div className="w-full h-full flex justify-center">
       <div className="w-[70rem] flex flex-col justify-center items-center py-[4rem]">
