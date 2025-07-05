@@ -2,10 +2,11 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { AppDispatch } from "@/redux/store";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import { setScore } from "@/redux/slices/Score";
 import { toast } from "react-toastify";
+import { setQuestions } from "@/redux/slices/Questions";
 
 interface Question {
   id: string;
@@ -21,12 +22,21 @@ interface QuizClientProps {
 
 const QuizClient: React.FC<QuizClientProps> = ({ questionData, index }) => {
   const router = useRouter();
+  const questions = useSelector((state: RootState) => state.Questions);
   const dispatch = useDispatch<AppDispatch>();
 
   const [selected, setSelected] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
+  console.log(
+    "Questions:",
+    questions,
+    questionData,
+    questions.includes(questionData)
+  );
+
   const checkAnswer = (option: string) => {
+    dispatch(setQuestions([...questions, questionData]));
     setSelected(option);
     const isCorrect = option === questionData.answer;
     setIsCorrect(isCorrect);
@@ -50,7 +60,12 @@ const QuizClient: React.FC<QuizClientProps> = ({ questionData, index }) => {
             type="radio"
             name="option"
             value={option}
-            checked={selected === option}
+            checked={
+              selected === option ||
+              questions.some(
+                (q) => q.id === questionData.id && q.answer === option
+              )
+            }
             readOnly
           />
           <p className="text-white">{option}</p>
