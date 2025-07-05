@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { setScore } from "@/redux/slices/Score";
+import { toast } from "react-toastify";
 
 interface Question {
   id: string;
@@ -23,14 +24,12 @@ const QuizClient: React.FC<QuizClientProps> = ({ questionData, index }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [selected, setSelected] = useState<string | null>(null);
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
   const checkAnswer = (option: string) => {
     setSelected(option);
     const isCorrect = option === questionData.answer;
-    console.log(
-      isCorrect ? "Correct!" : "Wrong!",
-      `Selected: ${option}, Correct: ${questionData.answer}`
-    );
+    setIsCorrect(isCorrect);
   };
 
   return (
@@ -61,6 +60,16 @@ const QuizClient: React.FC<QuizClientProps> = ({ questionData, index }) => {
         <button
           onClick={() => {
             if (selected) {
+              if (isCorrect) {
+                toast.success("Correct answer!", {
+                  hideProgressBar: true,
+                });
+              } else {
+                toast.error("Wrong answer!", {
+                  hideProgressBar: true,
+                });
+              }
+
               dispatch(setScore(selected === questionData.answer ? 1 : 0));
               router.back();
             } else {
