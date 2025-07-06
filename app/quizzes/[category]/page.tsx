@@ -20,11 +20,12 @@ interface Props {
 // }
 
 async function Page(props: Props) {
+  const baseUrl = process.env.BASE_URL;
   //   const { category } = await params;
   const params = await props.params;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/quizzes?category=${params.category}`,
+    `${baseUrl}/api/quizzes?category=${params.category}`,
     {
       cache: "no-store",
     }
