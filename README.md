@@ -27,7 +27,7 @@ This project is an interactive quiz application that displays one question at a 
 
 Set Envirement Variable
 
-   NEXT_PUBLIC_BASE_URL=http://localhost:3000
+   BASE_URL=http://localhost:3000
 
 run project
 
