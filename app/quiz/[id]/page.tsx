@@ -3,23 +3,31 @@ import { allQuizzes } from "@/data/dummuyData";
 import QuizClient from "../../component/QuizClient";
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
 
-const Page = async (props: Props) => {
-  const params = await props.params;
+const Page = ({ params }: Props) => {
+  const question = allQuizzes
+    .flatMap((quiz) => quiz.questions)
+    .find((q) => q.id.toLowerCase() === params.id.toLowerCase());
+
+  const index = allQuizzes
+    .flatMap((quiz) => quiz.questions)
+    .findIndex((q) => q.id.toLowerCase() === params.id.toLowerCase());
+
+  if (!question) {
+    return (
+      <div className="flex items-center justify-center h-screen text-white">
+        Question not found.
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full flex justify-center">
       <div className="w-[70rem] flex flex-col justify-center items-center py-[4rem]">
         <div className="flex flex-col gap-2 w-[40rem]">
-          {allQuizzes.map((quizz) =>
-            quizz.questions.map((question, index) =>
-              params.id.toLowerCase() === question.id.toLowerCase() ? (
-                <QuizClient key={index} index={index} questionData={question} />
-              ) : null
-            )
-          )}
+          <QuizClient index={index} questionData={question} />
         </div>
       </div>
     </div>
