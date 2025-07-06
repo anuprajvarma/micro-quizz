@@ -39,7 +39,7 @@ export default async function Home() {
   return (
     <div className="w-full h-full flex justify-center">
       <div className="w-[70rem] flex flex-col justify-center items-center py-[4rem]">
-        <div className="flex flex-col gap-[6rem]">
+        <div className="flex flex-col gap-[4rem]">
           <p className="text-white text-5xl font-semibold text-center">
             Quiz Categories
           </p>
