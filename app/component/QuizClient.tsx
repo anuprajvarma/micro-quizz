@@ -82,7 +82,7 @@ const QuizClient: React.FC<QuizClientProps> = ({ questionData, index }) => {
                   hideProgressBar: true,
                 });
               } else {
-                toast.error("Wrong answer!", {
+                toast.error(`Correct answer is ${questionData.answer}`, {
                   hideProgressBar: true,
                 });
               }
