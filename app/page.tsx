@@ -7,14 +7,20 @@ type Category = {
 };
 
 async function getCategories(): Promise<Category[]> {
+  if (!process.env.NEXT_PUBLIC_BASE_URL) {
+    throw new Error("NEXT_PUBLIC_BASE_URL is not defined");
+  }
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
     {
       cache: "force-cache",
     }
   );
-
-  return res.json();
+  if (!res.ok) {
+    throw new Error("Failed to fetch categories");
+  }
+  const data = await res.json();
+  return data;
 }
 
 export const metadata = {
@@ -25,6 +31,10 @@ export const metadata = {
 
 export default async function Home() {
   const categories = await getCategories();
+  console.log(
+    `process.env.NEXT_PUBLIC_BASE_URL`,
+    process.env.NEXT_PUBLIC_BASE_URL
+  );
 
   return (
     <div className="w-full h-full flex justify-center">
