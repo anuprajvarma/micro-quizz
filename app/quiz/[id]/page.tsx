@@ -26,7 +26,7 @@ const Page = ({ params }: Props) => {
   return (
     <div className="w-full h-full flex justify-center">
       <div className="w-[70rem] flex flex-col justify-center items-center py-[4rem]">
-        <div className="flex flex-col gap-2 w-[40rem]">
+        <div className="flex flex-col gap-2 sm:w-[40rem] w-[20rem]">
           <QuizClient index={index} questionData={question} />
         </div>
       </div>

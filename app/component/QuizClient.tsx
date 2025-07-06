@@ -43,35 +43,37 @@ const QuizClient: React.FC<QuizClientProps> = ({ questionData, index }) => {
   };
 
   return (
-    <div className="text-gray-400 flex flex-col gap-4 font-semibold text-xl">
+    <div className="text-gray-400 flex flex-col gap-4 font-semibold text-xl w-full">
       <div className="flex gap-2">
         <p>{(index ?? 0) + 1}.</p>
         <p>{questionData.question}</p>
       </div>
-      {questionData.options.map((option, idx) => (
-        <button
-          key={idx}
-          onClick={() => checkAnswer(option)}
-          className={`flex gap-4 text-slaty/80 cursor-pointer text-start rounded-lg hover:bg-lightSlaty px-8 py-2 transition duration-300 ${
-            selected === option ? "border-blue-500 border-2" : "border"
-          }`}
-        >
-          <input
-            type="radio"
-            name="option"
-            value={option}
-            checked={
-              selected === option ||
-              questions.some(
-                (q) => q.id === questionData.id && q.answer === option
-              )
-            }
-            readOnly
-          />
-          <p className="text-white">{option}</p>
-        </button>
-      ))}
-      <div className="w-full flex justify-end">
+      <div className="flex flex-col gap-4">
+        {questionData.options.map((option, idx) => (
+          <button
+            key={idx}
+            onClick={() => checkAnswer(option)}
+            className={`flex gap-4 text-slaty/80 cursor-pointer rounded-lg w-full  hover:bg-lightSlaty px-8 py-2 transition duration-300 ${
+              selected === option ? "border-blue-500 border-2" : "border"
+            }`}
+          >
+            <input
+              type="radio"
+              name="option"
+              value={option}
+              checked={
+                selected === option ||
+                questions.some(
+                  (q) => q.id === questionData.id && q.answer === option
+                )
+              }
+              readOnly
+            />
+            <p className="text-white">{option}</p>
+          </button>
+        ))}
+      </div>
+      <div className="flex justify-end">
         <button
           onClick={() => {
             if (selected) {

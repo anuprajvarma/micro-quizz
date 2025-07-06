@@ -34,7 +34,7 @@ function ClientQuizPage({ selectedQuiz }: { selectedQuiz: Quiz }) {
               <p>{score}</p>
             </div>
           </div>
-          <div className="flex flex-col gap-2 w-[40rem]">
+          <div className="flex flex-col gap-2 sm:w-[40rem]">
             {selectedQuiz?.questions?.length > 0 ? (
               selectedQuiz.questions.map(
                 (question: questionType, index: number) => (
